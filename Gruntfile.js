@@ -37,6 +37,12 @@ module.exports = function(grunt) {
             }
         },
 
+        touch: {
+            options: {
+            },
+            src: [ 'test/fixtures/new' ],
+        },
+
         // Configuration to be run (and then tested).
         webdavpush: {
             default_options: {
@@ -51,6 +57,7 @@ module.exports = function(grunt) {
             },
             custom_options: {
                 options: {
+                    since: 1E11
                 },
                 files: [ {
                     expand: true, flatten: false,
@@ -77,10 +84,11 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-nodeunit');
     grunt.loadNpmTasks('grunt-connect-prism');
     grunt.loadNpmTasks('grunt-mock');
+    grunt.loadNpmTasks('grunt-touch');
 
     // Whenever the "test" task is run, first clean the "tmp" dir, then run this
     // plugin's task(s), then test the result.
-    grunt.registerTask('test', [ 'clean', 'prism', 'webdavpush', 'nodeunit' ]);
+    grunt.registerTask('test', [ 'clean', 'prism', 'touch', 'webdavpush', 'nodeunit' ]);
 
     // By default, lint and run all tests.
     grunt.registerTask('default', [ 'jshint', 'test' ]);
