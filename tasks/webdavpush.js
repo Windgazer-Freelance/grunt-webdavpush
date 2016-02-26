@@ -9,6 +9,7 @@
 'use strict';
 
 var fs = require('fs');
+var request = require('request');
 
 module.exports = function(grunt) {
 
@@ -32,7 +33,10 @@ module.exports = function(grunt) {
                     return (fs.lstatSync(filepath).mtime > filterSince);
                 }
             }).map(function(filepath) {
-                grunt.log.warn('Pushing "' + filepath + '" to ' + f.dest);
+                var destination = f.dest;
+                destination = destination.replace(/^http(s?):\/(?!\/)/, 'http$1://'); //dunno why the double forward gets eaten...
+                grunt.log.warn('Pushing "' + filepath + '" to ' + destination);
+                fs.createReadStream(filepath).pipe(request.put(destination));
                 return f.dest;
             });//.join(grunt.util.normalizelf(options.separator));
         });
