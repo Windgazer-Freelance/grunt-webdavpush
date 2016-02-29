@@ -1,0 +1,6 @@
+{
+  "requestUrl": "/webdav/fixtures/new",
+  "contentType": "application/javascript",
+  "statusCode": 200,
+  "data": {}
+}
