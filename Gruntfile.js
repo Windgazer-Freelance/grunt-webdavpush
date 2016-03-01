@@ -38,7 +38,7 @@ module.exports = function(grunt) {
 
                         // add REST stuff
                         middlewares.unshift(function(req, res, next) {
-                            console.log('proxy', req.url);
+                            grunt.log.debug('proxy', req.url);
 
                             res.setHeader('Access-Control-Allow-Credentials', 'true');
                             res.setHeader('Access-Control-Allow-Headers', 'accept, x-version, content-type, authorization');

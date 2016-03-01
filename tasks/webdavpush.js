@@ -13,11 +13,13 @@ var fs = require('fs'),
     request = require('request')
 ;
 
+// request.debug = true;
+
 module.exports = function(grunt) {
 
     function createHandler(done) {
         return function resolveRequest(error, response, body) {
-            grunt.log.warn([ error, response, body ].join(', '));
+            grunt.log.debug([ error, response, body ].join(', '));
             if (!error && response.statusCode > 199 && response.statusCode < 400) {
                 done();
             } else {
@@ -28,7 +30,7 @@ module.exports = function(grunt) {
 
     function pushFile(f, done) {
         var t = Date.now();
-        grunt.log.warn('Pushing "' + f.src + '" to ' + f.dest);
+        grunt.log.ok('Pushing "' + f.src + '" to ' + f.dest);
         fs.createReadStream(f.src).pipe(request.put(f.dest, createHandler(done)));
     }
 
@@ -65,7 +67,7 @@ module.exports = function(grunt) {
             filtered = filtered.concat(src);
         });
 
-        grunt.log.warn(JSON.stringify(filtered));
+        grunt.log.debug(JSON.stringify(filtered));
         async.eachSeries(filtered, pushFile, function eventually(err) {
             if (err) {
                 grunt.fail.fatal(err);
