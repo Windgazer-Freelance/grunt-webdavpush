@@ -86,29 +86,42 @@ module.exports = function(grunt) {
         touch: {
             options: {
             },
-            src: [ 'test/fixtures/new' ],
+            src: [
+                'test/fixtures/one/new',
+                'test/fixtures/newonly/new'
+            ],
         },
 
         // Configuration to be run (and then tested).
         webdavpush: {
-            default_options: {
+            one: {
                 options: {
                 },
                 files: [ {
                     expand: true, flatten: false,
-                    cwd: 'test/',
-                    src: [ 'fixtures/*', 'fake/tst' ],
+                    cwd: 'test/fixtures/',
+                    src: [ 'one/*', 'fake/tst' ],
                     dest: 'http://localhost:8081/webdav/'
                 } ]
             },
-            custom_options: {
+            two: {
                 options: {
                     since: 1E11
                 },
                 files: [ {
                     expand: true, flatten: false,
-                    cwd: 'test/',
-                    src: [ 'fixtures/*', 'fake/tst' ],
+                    cwd: 'test/fixtures/',
+                    src: [ 'two/*' ],
+                    dest: 'http://localhost:8081/webdav/'
+                } ]
+            },
+            new_only: {
+                options: {
+                },
+                files: [ {
+                    expand: true, flatten: false,
+                    cwd: 'test/fixtures/',
+                    src: [ 'newonly/*' ],
                     dest: 'http://localhost:8081/webdav/'
                 } ]
             }

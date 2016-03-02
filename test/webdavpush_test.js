@@ -27,20 +27,35 @@ exports.webdavpush = {
         // setup here if necessary
         done();
     },
-    default_options: function(test) {
+    one: function(test) {
         test.expect(1);
 
-        var actual = grunt.file.read('test/out/webdav/fixtures/new');
-        var expected = grunt.file.read('test/fixtures/new');
+        var actual = grunt.file.read('test/out/webdav/one/new');
+        var expected = grunt.file.read('test/fixtures/one/new');
         test.equal(actual, expected, 'should describe what the default behavior is.');
 
         test.done();
     },
-    custom_options: function(test) {
-        test.expect(1);
+    two: function(test) {
+        test.expect(2);
 
-        var actual = grunt.file.read('test/out/webdav/fixtures/old');
-        var expected = grunt.file.read('test/fixtures/old');
+        var actual = grunt.file.read('test/out/webdav/two/new');
+        var expected = grunt.file.read('test/fixtures/two/new');
+        test.equal(actual, expected, 'should describe what the custom option(s) behavior is.');
+        actual = grunt.file.read('test/out/webdav/two/old');
+        expected = grunt.file.read('test/fixtures/two/old');
+        test.equal(actual, expected, 'should describe what the custom option(s) behavior is.');
+
+        test.done();
+    },
+    newonly: function(test) {
+        test.expect(2);
+
+        var actual = grunt.file.read('test/out/webdav/newonly/new');
+        var expected = grunt.file.read('test/fixtures/newonly/new');
+        test.equal(actual, expected, 'should describe what the custom option(s) behavior is.');
+        actual = grunt.file.exists('test/out/webdav/newonly/old');
+        expected = false;
         test.equal(actual, expected, 'should describe what the custom option(s) behavior is.');
 
         test.done();
