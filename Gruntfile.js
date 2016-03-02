@@ -35,6 +35,22 @@ module.exports = function(grunt) {
                     hostname: '127.0.0.1',
                     middleware: function(connect, options, middlewares) {
                         middlewares.unshift(require('grunt-connect-prism/middleware'));
+                        var bodyParser = require('body-parser');
+
+                        middlewares.unshift(bodyParser.text());
+
+                        // add request logger
+                        middlewares.unshift(function(req, res, next) {
+                            req.on('data', function(buffer) {
+                                //console.log(buffer.toString());
+                                var filepath = [ 'test/out', req.url ].join('');
+                                grunt.log.warn(filepath);
+                                grunt.file.write(filepath, buffer);
+                            });
+                            req.on('end', next);
+                            req.on('close', next);
+                            next();
+                        });
 
                         // add REST stuff
                         middlewares.unshift(function(req, res, next) {
