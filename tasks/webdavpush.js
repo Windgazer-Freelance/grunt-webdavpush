@@ -13,8 +13,6 @@ var fs = require('fs'),
     request = require('request')
 ;
 
-// request.debug = true;
-
 module.exports = function(grunt) {
 
     function createHandler(done) {

@@ -35,9 +35,6 @@ module.exports = function(grunt) {
                     hostname: '127.0.0.1',
                     middleware: function(connect, options, middlewares) {
                         middlewares.unshift(require('grunt-connect-prism/middleware'));
-                        var bodyParser = require('body-parser');
-
-                        middlewares.unshift(bodyParser.text());
 
                         // add request logger
                         middlewares.unshift(function(req, res, next) {
