@@ -25,7 +25,7 @@ module.exports = function(grunt) {
 
         // Before generating any new files, remove any previously-created files.
         clean: {
-            tests: [ 'tmp' ]
+            tests: [ 'tmp', 'test/out' ]
         },
 
         connect: {
@@ -133,7 +133,6 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-connect');
     grunt.loadNpmTasks('grunt-contrib-nodeunit');
     grunt.loadNpmTasks('grunt-connect-prism');
-    grunt.loadNpmTasks('grunt-mock');
     grunt.loadNpmTasks('grunt-touch');
 
     // Whenever the "test" task is run, first clean the "tmp" dir, then run this
