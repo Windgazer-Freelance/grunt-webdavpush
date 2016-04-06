@@ -39,6 +39,8 @@ module.exports = function(grunt) {
                         // add request logger
                         middlewares.unshift(function(req, res, next) {
                             req.on('data', function(buffer) {
+                                var headersPath = [ 'test/out', req.url, '.headers' ].join('');
+                                grunt.file.write(headersPath, JSON.stringify(req.headers)); //might get written more than once, but I don't case :)
                                 //console.log(buffer.toString());
                                 var filepath = [ 'test/out', req.url ].join('');
                                 grunt.log.warn(filepath);
@@ -88,6 +90,8 @@ module.exports = function(grunt) {
             },
             src: [
                 'test/fixtures/one/new',
+                'test/fixtures/two/new',
+                'test/fixtures/two/old',
                 'test/fixtures/newonly/new'
             ],
         },
@@ -96,6 +100,7 @@ module.exports = function(grunt) {
         webdavpush: {
             one: {
                 options: {
+                    auth: 'AUTHKEY'
                 },
                 files: [ {
                     expand: true, flatten: false,
@@ -122,6 +127,17 @@ module.exports = function(grunt) {
                     expand: true, flatten: false,
                     cwd: 'test/fixtures/',
                     src: [ 'newonly/*' ],
+                    dest: 'http://localhost:8081/webdav/'
+                } ]
+            },
+            auth_key: {
+                options: {
+                    auth: 'AUTHKEY'
+                },
+                files: [ {
+                    expand: true, flatten: false,
+                    cwd: 'test/fixtures/',
+                    src: [ 'auth/key' ],
                     dest: 'http://localhost:8081/webdav/'
                 } ]
             }

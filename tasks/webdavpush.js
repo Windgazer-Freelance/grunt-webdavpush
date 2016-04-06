@@ -28,8 +28,19 @@ module.exports = function(grunt) {
 
     function pushFile(f, done) {
         var t = Date.now();
+        var options = f.options;
+        var requestOptions = {
+            url: f.dest,
+        };
+
         grunt.log.ok('Pushing "' + f.src + '" to ' + f.dest);
-        fs.createReadStream(f.src).pipe(request.put(f.dest, createHandler(done)));
+        if (options.auth) {
+            requestOptions['headers'] = {
+                'Authorization': 'Basic ' + options.auth
+            };
+        }
+
+        fs.createReadStream(f.src).pipe(request.put(requestOptions, createHandler(done)));
     }
 
     // Please see the Grunt documentation for more information regarding task
@@ -59,7 +70,7 @@ module.exports = function(grunt) {
                 var destination = f.dest;
                 destination = destination.replace(/^http(s?):\/(?!\/)/, 'http$1://'); //dunno why the double forward gets eaten...
                 //pushFile(filepath, destination);
-                return {src: filepath, dest: destination};
+                return {src: filepath, dest: destination, options: options};
             });
 
             filtered = filtered.concat(src);
