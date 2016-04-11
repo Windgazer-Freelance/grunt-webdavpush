@@ -60,4 +60,14 @@ exports.webdavpush = {
 
         test.done();
     },
+    authkey: function(test) {
+        test.expect(1);
+
+        var actual = grunt.file.readJSON('test/out/webdav/one/new.headers');
+        var expected = 'Basic AUTHKEY';
+
+        test.equal(actual.authorization, expected, 'Expected new.headers to contain "' + expected + '"');
+
+        test.done();
+    }
 };

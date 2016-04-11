@@ -36,7 +36,7 @@ module.exports = function(grunt) {
                     middleware: function(connect, options, middlewares) {
                         middlewares.unshift(require('grunt-connect-prism/middleware'));
 
-                        // add request logger
+                        // add request headers logger
                         middlewares.unshift(function(req, res, next) {
                             req.on('data', function(buffer) {
                                 var headersPath = [ 'test/out', req.url, '.headers' ].join('');
@@ -111,6 +111,8 @@ module.exports = function(grunt) {
             },
             two: {
                 options: {
+                    username: 'dodo',
+                    pwd: 'extinct',
                     since: 1E11
                 },
                 files: [ {
@@ -127,17 +129,6 @@ module.exports = function(grunt) {
                     expand: true, flatten: false,
                     cwd: 'test/fixtures/',
                     src: [ 'newonly/*' ],
-                    dest: 'http://localhost:8081/webdav/'
-                } ]
-            },
-            auth_key: {
-                options: {
-                    auth: 'AUTHKEY'
-                },
-                files: [ {
-                    expand: true, flatten: false,
-                    cwd: 'test/fixtures/',
-                    src: [ 'auth/key' ],
                     dest: 'http://localhost:8081/webdav/'
                 } ]
             }
