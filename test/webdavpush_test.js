@@ -69,5 +69,15 @@ exports.webdavpush = {
         test.equal(actual.authorization, expected, 'Expected new.headers to contain "' + expected + '"');
 
         test.done();
+    },
+    username: function(test) {
+        test.expect(1);
+
+        var actual = grunt.file.readJSON('test/out/webdav/two/new.headers');
+        var expected = 'Basic ZG9kbzpleHRpbmN0';
+
+        test.equal(actual.authorization, expected, 'Expected new.headers to contain "' + expected + '"');
+
+        test.done();
     }
 };

@@ -15,6 +15,20 @@ var fs = require('fs'),
 
 module.exports = function(grunt) {
 
+    function setHeaders(requestOptions, options) {
+        if (options.auth) {
+            requestOptions['headers'] = {
+                'Authorization': 'Basic ' + options.auth
+            };
+        }
+        if (options.username && options.pwd) {
+            requestOptions['headers'] = {
+                'Authorization': 'Basic ' + new Buffer(options.username + ':' + options.pwd).toString('base64')
+            };
+        }
+        return requestOptions;
+    }
+
     function createHandler(done) {
         return function resolveRequest(error, response, body) {
             grunt.log.debug([ error, response, body ].join(', '));
@@ -34,11 +48,7 @@ module.exports = function(grunt) {
         };
 
         grunt.log.ok('Pushing "' + f.src + '" to ' + f.dest);
-        if (options.auth) {
-            requestOptions['headers'] = {
-                'Authorization': 'Basic ' + options.auth
-            };
-        }
+        requestOptions = setHeaders(requestOptions, options);
 
         fs.createReadStream(f.src).pipe(request.put(requestOptions, createHandler(done)));
     }
