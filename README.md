@@ -1,14 +1,15 @@
 # grunt-webdavpush [![Build Status](https://travis-ci.org/Windgazer-Freelance/grunt-webdavpush.svg?branch=master)](https://travis-ci.org/Windgazer-Freelance/grunt-webdavpush)
 
-> A one-way webdav based sync.
+> A one-way webdav based 'sync'. Not really a sync since we're only pushing files changed
+> within the last `n` minutes.
 
 ## Getting Started
-This plugin requires Grunt `~0.4.5`
+This plugin requires Grunt `~5.1.0`
 
 If you haven't used [Grunt](http://gruntjs.com/) before, be sure to check out the [Getting Started](http://gruntjs.com/getting-started) guide, as it explains how to create a [Gruntfile](http://gruntjs.com/sample-gruntfile) as well as install and use Grunt plugins. Once you're familiar with that process, you may install this plugin with this command:
 
 ```shell
-npm install grunt-webdavpush --save-dev
+n/a
 ```
 
 Once the plugin has been installed, it may be enabled inside your Gruntfile with this line of JavaScript:
@@ -37,53 +38,44 @@ grunt.initConfig({
 
 ### Options
 
-#### options.separator
+#### options.auth
 Type: `String`
-Default value: `',  '`
+Default value: `''`
 
-A string value that is used to do something with whatever.
+Base64 encoded concatenation of [username]:[password]. This is for basic authentication
+when you're in an office with relatively relaxed security, but where a casual glance at
+your screen should not broad-cast your password... It is still recommended to store actual
+value outside of repo and require it in your Gruntfile!
 
-#### options.punctuation
+#### options.username
 Type: `String`
-Default value: `'.'`
+Default value: `''`
 
-A string value that is used to do something else with whatever else.
+Unencoded, plain-text, [username]. For when you need basic authentication and don't care
+if a casual glance at your screen broadcasts your username / password. Not recommended.
+
+#### options.pwd
+Type: `String`
+Default value: `''`
+
+Unencoded, plain-text, [password]. For when you need basic authentication and don't care
+if a casual glance at your screen broadcasts your username / password. Not recommended.
+
+#### options.since
+Type: `Integer`
+Default value: `(5 * 60 * 1000)`
+
+Milliseconds since last changed that should trigger file to be pushed. Yeah, totally cheap
+and unsophisticated, will happily upload your file over and again as long as it was last
+changed within this number.
 
 ### Usage Examples
 
-#### Default Options
-In this example, the default options are used to do something with whatever. So if the `testing` file has the content `Testing` and the `123` file had the content `1 2 3`, the generated result would be `Testing, 1 2 3.`
-
-```js
-grunt.initConfig({
-  webdavpush: {
-    options: {},
-    files: {
-      'dest/default_options': ['src/testing', 'src/123'],
-    },
-  },
-});
-```
-
-#### Custom Options
-In this example, custom options are used to do something else with whatever else. So if the `testing` file has the content `Testing` and the `123` file had the content `1 2 3`, the generated result in this case would be `Testing: 1 2 3 !!!`
-
-```js
-grunt.initConfig({
-  webdavpush: {
-    options: {
-      separator: ': ',
-      punctuation: ' !!!',
-    },
-    files: {
-      'dest/default_options': ['src/testing', 'src/123'],
-    },
-  },
-});
-```
+See `Gruntfile` of this repository for examples (for now).
 
 ## Contributing
-In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/).
+Add tests for whatever you attempt to fix / add. Make sure you at least adhere to the
+jsHint rules defined in `.jshintrc`. Please attempt to match existing coding style!
 
 ## Release History
 _(Nothing yet)_
