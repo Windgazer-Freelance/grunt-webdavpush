@@ -1,4 +1,4 @@
-# grunt-webdavpush
+# grunt-webdavpush [![Build Status](https://travis-ci.org/Windgazer-Freelance/grunt-webdavpush.svg?branch=master)](https://travis-ci.org/Windgazer-Freelance/grunt-webdavpush)
 
 > A one-way webdav based sync.
 

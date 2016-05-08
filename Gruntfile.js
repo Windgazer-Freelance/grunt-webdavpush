@@ -94,6 +94,14 @@ module.exports = function(grunt) {
                 'test/fixtures/two/old',
                 'test/fixtures/newonly/new'
             ],
+            old: {
+                options: {
+                    time: '2015-01-01 12:00:00'
+                },
+                src: [
+                    'test/fixtures/newonly/old'
+                ]
+            }
         },
 
         // Configuration to be run (and then tested).
