@@ -1,7 +1,7 @@
 # grunt-webdavpush [![Build Status](https://travis-ci.org/Windgazer-Freelance/grunt-webdavpush.svg?branch=master)](https://travis-ci.org/Windgazer-Freelance/grunt-webdavpush)
 
-> A one-way webdav based 'sync'. Not really a sync since we're only pushing files changed
-> within the last `n` minutes.
+> A one-way webdav based 'sync'. Can optionally be configured to use an in-memory database
+> to figure out if files have changed since it was last running.
 
 ## Getting Started
 This plugin requires Grunt `~5.1.0`
@@ -47,6 +47,14 @@ when you're in an office with relatively relaxed security, but where a casual gl
 your screen should not broad-cast your password... It is still recommended to store actual
 value outside of repo and require it in your Gruntfile!
 
+#### options.db
+Type: `boolean`
+Default value: `false`
+
+If set to true, this task will attempt to load a database and check if files have been
+modified since the database was last updated / initialised. If you want to make use of
+this options, you must first run the `webdavinit` task!
+
 #### options.username
 Type: `String`
 Default value: `''`
@@ -72,6 +80,31 @@ changed within this number.
 ### Usage Examples
 
 See `Gruntfile` of this repository for examples (for now).
+
+## The "webdavinit" task
+
+With the `webdavinit` task you can prep a database of files that might potentially change.
+This database can subsequently be used by the webdavpush task to verify if a file has
+changed since the last time you either ran the push task or the init task.
+
+The database will persist between sessions.
+
+### Overview
+In your project's Gruntfile, add a section named `webdavinit` to the data object passed into `grunt.initConfig()`.
+
+```js
+grunt.initConfig({
+  webdavinit: {
+    your_target: {
+      // Target-specific file lists and/or options go here.
+    },
+  },
+});
+```
+
+### options
+
+For now this task has no options, it only takes files.
 
 ## Contributing
 Add tests for whatever you attempt to fix / add. Make sure you at least adhere to the
