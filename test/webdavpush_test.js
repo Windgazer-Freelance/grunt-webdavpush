@@ -100,18 +100,11 @@ exports.webdavpush = {
     },
     dbsync2: function(test) {
         test.expect(1);
-        var actual = [];
-        function concat(path) {
-            if (path && !path.contains('.headers')) {
-                actual.push( path );
-            }
-        }
+        var actual = grunt.file.exists('test/out/webdav/all2');
 
-        grunt.file.recurse('test/out/webdav/all2/newonly', concat);
+        var expected = false;
 
-        var expected = '';
-
-        test.equal(actual.join(';'), expected, 'expected only some files to have been picked up');
+        test.equal(actual, expected, 'expected no files to have been picked up');
 
         test.done();
     }

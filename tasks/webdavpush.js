@@ -59,13 +59,19 @@ module.exports = function(grunt) {
 
     function checkdb(filepath) {
         var file = files.findOne( {'src': {'$eq': filepath}} );
-        var mtime;
+        var mtime, changed;
         if (file) {
-            mtime = fs.lstatSync(filepath).mtime.getTime();
             grunt.log.debug('*** check against db ***');
-            grunt.log.debug(JSON.stringify(file), filepath);
-            grunt.log.debug(file.mtime, mtime, file.mtime !== mtime);
-            return file.mtime !== mtime;
+
+            mtime = fs.lstatSync(filepath).mtime.getTime();
+            changed = file.mtime !== mtime;
+
+            grunt.log.debug(JSON.stringify(file), filepath, mtime, changed);
+
+            file.mtime = mtime;
+            files.update(file);
+
+            return changed;
         }
         return false;
     }
@@ -101,7 +107,7 @@ module.exports = function(grunt) {
             }
         }
 
-        function filterfiles() {
+        function filterfiles(done) {
             grunt.log.debug('Filtering files.');
             // Iterate over all specified file groups.
             var filtered = [];
@@ -134,7 +140,12 @@ module.exports = function(grunt) {
         async.series([
             getdb,
             filterfiles
-        ]);
+        ], function cleanup() {
+            if (options.db) {
+                db.saveDatabase();
+            }
+            done();
+        });
     });
 
 };
