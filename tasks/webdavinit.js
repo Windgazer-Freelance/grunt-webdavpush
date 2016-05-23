@@ -9,7 +9,7 @@
 'use strict';
 
 var Loki = require('lokijs');
-var db = new Loki('loki.json');
+var db = new Loki(__dirname + '/loki.db.json');
 var files = db.addCollection('files');
 var fs = require('fs');
 

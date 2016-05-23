@@ -15,7 +15,7 @@ var fs = require('fs'),
 ;
 
 module.exports = function(grunt) {
-    var db = new Loki('loki.json'),
+    var db = new Loki(__dirname + '/loki.db.json'),
         files
     ;
 
