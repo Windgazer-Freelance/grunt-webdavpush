@@ -104,6 +104,16 @@ module.exports = function(grunt) {
             }
         },
 
+        webdavinit: {
+            fromscratch: {
+                files: [ {
+                    expand: true, flatten: false,
+                    cwd: 'test/fixtures/',
+                    src: [ '**/*' ]
+                } ]
+            }
+        },
+
         // Configuration to be run (and then tested).
         webdavpush: {
             one: {
@@ -139,6 +149,28 @@ module.exports = function(grunt) {
                     src: [ 'newonly/*' ],
                     dest: 'http://localhost:8081/webdav/'
                 } ]
+            },
+            db_sync: {
+                options: {
+                    db: true
+                },
+                files: [ {
+                    expand: true, flatten: false,
+                    cwd: 'test/fixtures/',
+                    src: [ '**/*' ],
+                    dest: 'http://localhost:8081/webdav/all'
+                } ]
+            },
+            db_sync2: {
+                options: {
+                    db: true
+                },
+                files: [ {
+                    expand: true, flatten: false,
+                    cwd: 'test/fixtures/',
+                    src: [ '**/*' ],
+                    dest: 'http://localhost:8081/webdav/all2'
+                } ]
             }
         },
 
@@ -162,7 +194,7 @@ module.exports = function(grunt) {
 
     // Whenever the "test" task is run, first clean the "tmp" dir, then run this
     // plugin's task(s), then test the result.
-    grunt.registerTask('test', [ 'clean', 'prism:webdav', 'connect', 'touch', 'webdavpush', 'nodeunit' ]);
+    grunt.registerTask('test', [ 'clean', 'prism:webdav', 'connect', 'webdavinit', 'touch', 'webdavpush', 'nodeunit' ]);
 
     // By default, lint and run all tests.
     grunt.registerTask('default', [ 'jshint', 'test' ]);
