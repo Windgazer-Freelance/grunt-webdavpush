@@ -27,7 +27,7 @@ module.exports = function(grunt) {
                 if (!fs.lstatSync(src).isDirectory()) {
                     file = {
                         src: src,
-                        mtime: fs.lstatSync(src).mtime
+                        mtime: fs.lstatSync(src).mtime.getTime()
                     };
                     files.insert(file);
                     grunt.verbose.ok( JSON.stringify( files.findOne( {'src': {'$eq': src}} ) ) );

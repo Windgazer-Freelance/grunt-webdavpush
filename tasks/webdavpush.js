@@ -61,7 +61,7 @@ module.exports = function(grunt) {
         var file = files.findOne( {'src': {'$eq': filepath}} );
         var mtime;
         if (file) {
-            mtime = fs.lstatSync(filepath).mtime;
+            mtime = fs.lstatSync(filepath).mtime.getTime();
             grunt.log.debug('*** check against db ***');
             grunt.log.debug(JSON.stringify(file), filepath);
             grunt.log.debug(file.mtime, mtime, file.mtime !== mtime);
@@ -91,7 +91,7 @@ module.exports = function(grunt) {
                 db.loadDatabase({}, function() {
                     files = db.getCollection('files');
                     grunt.log.debug('Done loading db entries');
-                    grunt.log.debug(files.data);
+                    grunt.log.debug(JSON.stringify(files.data));
                     done();
                     return true;
                 });
