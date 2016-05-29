@@ -110,12 +110,6 @@ webdavpush: {
 
 ## The "webdavinit" task
 
-Once the plugin has been installed, it may be enabled inside your Gruntfile with this line of JavaScript:
-
-```js
-grunt.loadNpmTasks('grunt-webdavinit');
-```
-
 With the `webdavinit` task you can prep a database of files that might potentially change.
 This database can subsequently be used by the webdavpush task to verify if a file has
 changed since the last time you either ran the push task or the init task.
