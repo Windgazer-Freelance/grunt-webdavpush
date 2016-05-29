@@ -1,7 +1,7 @@
 {
   "name": "grunt-webdavpush",
   "description": "A one-way webdav based sync.",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "homepage": "",
   "author": {
     "name": "Martin Reurings",
@@ -10,7 +10,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://windgazer@bitbucket.org/windgazerdesign/grunt-webdavpush.git"
+    "url": "https://github.com/Windgazer-Freelance/grunt-webdavpush.git"
   },
   "bugs": {
     "url": "https://bitbucket.org/windgazerdesign/grunt-webdavpush/issues"
