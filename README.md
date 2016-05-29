@@ -25,14 +25,14 @@ In your project's Gruntfile, add a section named `webdavpush` to the data object
 
 ```js
 grunt.initConfig({
-  webdavpush: {
-    options: {
-      // Task-specific options go here.
+    webdavpush: {
+        options: {
+            // Task-specific options go here.
+        },
+        your_target: {
+            // Target-specific file lists and/or options go here.
+        },
     },
-    your_target: {
-      // Target-specific file lists and/or options go here.
-    },
-  },
 });
 ```
 
@@ -79,7 +79,34 @@ changed within this number.
 
 ### Usage Examples
 
-See `Gruntfile` of this repository for examples (for now).
+```js
+webdavpush: {
+    authkey: {
+        options: {
+            auth: 'dXNlcm5hbWU6cGFzc3dvcmQ='
+        },
+        files: [ {
+            expand: true, flatten: false,
+            cwd: 'test/fixtures/',
+            src: [ 'one/*', 'fake/tst' ],
+            dest: 'http://localhost:8081/webdav/'
+        } ]
+    },
+    plaintext: {
+        options: {
+            username: 'username',
+            pwd: 'password',
+            since: 1E11
+        },
+        files: [ {
+            expand: true, flatten: false,
+            cwd: 'test/fixtures/',
+            src: [ 'two/*' ],
+            dest: 'http://localhost:8081/webdav/'
+        } ]
+    }
+}
+```
 
 ## The "webdavinit" task
 
@@ -94,11 +121,11 @@ In your project's Gruntfile, add a section named `webdavinit` to the data object
 
 ```js
 grunt.initConfig({
-  webdavinit: {
-    your_target: {
+    webdavinit: {
+        your_target: {
       // Target-specific file lists and/or options go here.
+        },
     },
-  },
 });
 ```
 
@@ -106,9 +133,46 @@ grunt.initConfig({
 
 For now this task has no options, it only takes files.
 
+### Usage Examples
+
+```js
+grunt.initConfig({
+    webdavinit: {
+        fromscratch: {
+            files: [ {
+                expand: true, flatten: false,
+                cwd: 'test/fixtures/',
+                src: [ '**/*' ]
+            } ]
+        }
+    },
+    webdavpush: {
+        db_sync: {
+            options: {
+                db: true
+            },
+            files: [ {
+                expand: true, flatten: false,
+                cwd: 'test/fixtures/',
+                src: [ '**/*' ],
+                dest: 'http://localhost:8081/webdav/all'
+            } ]
+        }
+    }
+});
+```
+
 ## Contributing
 Add tests for whatever you attempt to fix / add. Make sure you at least adhere to the
 jsHint rules defined in `.jshintrc`. Please attempt to match existing coding style!
 
 ## Release History
-_(Nothing yet)_
+
+### v0.2.0
+
+- Support for plain-text username/password
+- Support for basic auth using am AUTHKEY
+- Support for using a simple database to track if files have changed (for use together
+    with [grunt-contrib-watch][1])
+
+[1]: https://github.com/gruntjs/grunt-contrib-watch

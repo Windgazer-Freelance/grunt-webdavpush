@@ -86,6 +86,11 @@ module.exports = function(grunt) {
         },
 
         touch: {
+            reset: {
+                src: [
+                    'test/fixtures/newonly/old'
+                ]
+            },
             latest: {
                 options: {
                 },
@@ -196,9 +201,11 @@ module.exports = function(grunt) {
 
     // Whenever the "test" task is run, first clean the "tmp" dir, then run this
     // plugin's task(s), then test the result.
-    grunt.registerTask('test', [ 'clean', 'prism:webdav', 'connect', 'webdavinit', 'touch', 'webdavpush', 'nodeunit' ]);
+    grunt.registerTask('test', [ 'reset', 'prism:webdav', 'connect', 'webdavinit', 'touch', 'webdavpush', 'nodeunit' ]);
 
     // By default, lint and run all tests.
     grunt.registerTask('default', [ 'jshint', 'test' ]);
+
+    grunt.registerTask('reset', [ 'clean', 'touch:reset' ]);
 
 };
