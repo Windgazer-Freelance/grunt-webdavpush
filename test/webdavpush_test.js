@@ -92,7 +92,7 @@ exports.webdavpush = {
         grunt.file.recurse('test/out/webdav/all/one', concat);
         grunt.file.recurse('test/out/webdav/all/newonly', concat);
 
-        var expected = 'test/out/webdav/all/one/new;test/out/webdav/all/newonly/new';
+        var expected = 'test/out/webdav/all/one/new;test/out/webdav/all/newonly/new;test/out/webdav/all/newonly/old';
 
         test.equal(actual.join(';'), expected, 'expected only some files to have been picked up');
 

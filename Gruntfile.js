@@ -86,17 +86,19 @@ module.exports = function(grunt) {
         },
 
         touch: {
-            options: {
+            latest: {
+                options: {
+                },
+                src: [
+                    'test/fixtures/one/new',
+                    'test/fixtures/two/new',
+                    'test/fixtures/two/old',
+                    'test/fixtures/newonly/new'
+                ]
             },
-            src: [
-                'test/fixtures/one/new',
-                'test/fixtures/two/new',
-                'test/fixtures/two/old',
-                'test/fixtures/newonly/new'
-            ],
             old: {
                 options: {
-                    time: '2015-01-01 12:00:00'
+                    time: '2014-01-01 12:00:00'
                 },
                 src: [
                     'test/fixtures/newonly/old'
