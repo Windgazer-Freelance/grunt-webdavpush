@@ -79,5 +79,33 @@ exports.webdavpush = {
         test.equal(actual.authorization, expected, 'Expected new.headers to contain "' + expected + '"');
 
         test.done();
+    },
+    dbsync: function(test) {
+        test.expect(1);
+        var actual = [];
+        function concat(path) {
+            if (path && !path.contains('.headers')) {
+                actual.push( path );
+            }
+        }
+
+        grunt.file.recurse('test/out/webdav/all/one', concat);
+        grunt.file.recurse('test/out/webdav/all/newonly', concat);
+
+        var expected = 'test/out/webdav/all/one/new;test/out/webdav/all/newonly/new;test/out/webdav/all/newonly/old';
+
+        test.equal(actual.join(';'), expected, 'expected only some files to have been picked up');
+
+        test.done();
+    },
+    dbsync2: function(test) {
+        test.expect(1);
+        var actual = grunt.file.exists('test/out/webdav/all2');
+
+        var expected = false;
+
+        test.equal(actual, expected, 'expected no files to have been picked up');
+
+        test.done();
     }
 };
