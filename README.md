@@ -6,7 +6,7 @@
 > to figure out if files have changed since it was last running.
 
 ## Getting Started
-This plugin requires Grunt `~5.1.0`
+This plugin requires Grunt `~1.0.1`
 
 If you haven't used [Grunt](http://gruntjs.com/) before, be sure to check out the [Getting Started](http://gruntjs.com/getting-started) guide, as it explains how to create a [Gruntfile](http://gruntjs.com/sample-gruntfile) as well as install and use Grunt plugins. Once you're familiar with that process, you may install this plugin with this command:
 
