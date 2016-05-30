@@ -1,4 +1,6 @@
-# grunt-webdavpush [![Build Status](https://travis-ci.org/Windgazer-Freelance/grunt-webdavpush.svg?branch=master)](https://travis-ci.org/Windgazer-Freelance/grunt-webdavpush)
+# grunt-webdavpush
+[![Build Status][bi1]][bl1] [![Dependencies][bi2]][bl2] [![GitHub issues][bi3]][bl3]
+[![GitHub license][bi1]][bl4] [![npm][bi5]][npm]
 
 > A one-way webdav based 'sync'. Can optionally be configured to use an in-memory database
 > to figure out if files have changed since it was last running.
@@ -176,3 +178,14 @@ jsHint rules defined in `.jshintrc`. Please attempt to match existing coding sty
     with [grunt-contrib-watch][1])
 
 [1]: https://github.com/gruntjs/grunt-contrib-watch
+[npm]: https://www.npmjs.com/package/grunt-webdavpush
+
+[bi1]: https://travis-ci.org/Windgazer-Freelance/grunt-webdavpush.svg?branch=master
+[bl1]: https://travis-ci.org/Windgazer-Freelance/grunt-webdavpush
+[bi2]: https://david-dm.org/Windgazer-Freelance/grunt-webdavpush.svg
+[bl2]: https://david-dm.org/
+[bi3]: https://img.shields.io/github/issues/Windgazer-Freelance/grunt-webdavpush.svg
+[bl3]: https://github.com/Windgazer-Freelance/grunt-webdavpush/issues
+[bi4]: https://img.shields.io/badge/license-MIT-blue.svg
+[bl4]: https://raw.githubusercontent.com/Windgazer-Freelance/grunt-webdavpush/master/LICENSE-MIT
+[bi5]: https://img.shields.io/npm/v/grunt-webdavpush.svg?maxAge=2592000
