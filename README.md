@@ -1,6 +1,6 @@
 # grunt-webdavpush
 [![Build Status][bi1]][bl1] [![Dependencies][bi2]][bl2] [![GitHub issues][bi3]][bl3]
-[![GitHub license][bi1]][bl4] [![npm][bi5]][npm]
+[![GitHub license][bi4]][bl4] [![npm][bi5]][npm]
 
 > A one-way webdav based 'sync'. Can optionally be configured to use an in-memory database
 > to figure out if files have changed since it was last running.
