@@ -118,6 +118,16 @@ module.exports = function(grunt) {
                     cwd: 'test/fixtures/',
                     src: [ '**/*' ]
                 } ]
+            },
+            db_sync3: {
+                options: {
+                    db: __dirname + '/test/out/lokidb.db_sync3.json'
+                },
+                files: [ {
+                    expand: true, flatten: false,
+                    cwd: 'test/fixtures/',
+                    src: [ '**/*' ]
+                } ]
             }
         },
 
@@ -178,6 +188,17 @@ module.exports = function(grunt) {
                     src: [ '**/*' ],
                     dest: 'http://localhost:8081/webdav/all2'
                 } ]
+            },
+            db_sync3: {
+                options: {
+                    db: __dirname + '/test/out/lokidb.db_sync3.json'
+                },
+                files: [ {
+                    expand: true, flatten: false,
+                    cwd: 'test/fixtures/',
+                    src: [ '**/*' ],
+                    dest: 'http://localhost:8081/webdav/all3'
+                } ]
             }
         },
 
@@ -201,7 +222,21 @@ module.exports = function(grunt) {
 
     // Whenever the "test" task is run, first clean the "tmp" dir, then run this
     // plugin's task(s), then test the result.
-    grunt.registerTask('test', [ 'reset', 'prism:webdav', 'connect', 'webdavinit', 'touch', 'webdavpush', 'nodeunit' ]);
+    grunt.registerTask('test', [
+        'reset',
+        'prism:webdav',
+        'connect',
+        'webdavinit:fromscratch',
+        'webdavinit:db_sync3',
+        'touch',
+        'webdavpush:one',
+        'webdavpush:two',
+        'webdavpush:new_only',
+        'webdavpush:db_sync',
+        'webdavpush:db_sync2',
+        'webdavpush:db_sync3',
+        'nodeunit'
+    ]);
 
     // By default, lint and run all tests.
     grunt.registerTask('default', [ 'jshint', 'test' ]);

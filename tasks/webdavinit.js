@@ -9,13 +9,24 @@
 'use strict';
 
 var Loki = require('lokijs');
-var db = new Loki(__dirname + '/loki.db.json');
-var files = db.addCollection('files');
 var fs = require('fs');
 
 module.exports = function(grunt) {
 
     grunt.registerMultiTask('webdavinit', 'Create a datastore with current files and modification dates.', function() {
+
+        var options = this.options({
+                db: true
+            })
+        ;
+        var db;
+
+        if (options.db) {
+            grunt.log.debug('*** Using configured db or not... ', options.db);
+            db = new Loki((typeof options.db === 'string')?options.db:__dirname + '/loki.db.json');
+        }
+
+        var files = db.addCollection('files');
 
         var i, j, src, srca, file;
         var fa = this.files;
@@ -40,8 +51,4 @@ module.exports = function(grunt) {
 
     });
 
-};
-
-module.exports.getFile = function(src) {
-    return files.findOne( {'src': {'$eq': src}} );
 };
