@@ -29,6 +29,7 @@
   },
   "devDependencies": {
     "grunt": "~1.0.1",
+    "grunt-concurrent": "^2.3.0",
     "grunt-connect-prism": "^1.0.5",
     "grunt-contrib-clean": "^1.0.0",
     "grunt-contrib-connect": "^1.0.2",

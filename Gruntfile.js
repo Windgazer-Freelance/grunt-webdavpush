@@ -201,10 +201,41 @@ module.exports = function(grunt) {
                 } ]
             }
         },
+        parallel: {
+            db_sync3: {
+                options: {
+                    grunt: true
+                },
+                tasks: [ 'webdavinit:db_sync3', 'webdavpush:db_sync3' ]
+            },
+            nodeunit: {
+                options: {
+                    grunt: true
+                },
+                tasks: [ 'nodeunit' ]
+            }
+        },
 
         // Unit tests.
         nodeunit: {
             tests: [ 'test/*_test.js' ]
+        },
+
+        concurrent: {
+            test: [
+                'webdavpush:one',
+                'webdavpush:two',
+                'webdavpush:new_only',
+                [
+                    'webdavpush:db_sync',
+                    'webdavpush:db_sync2',
+
+                ],
+                [
+                    'webdavinit:db_sync3',
+                    'webdavpush:db_sync3'
+                ]
+            ]
         }
 
     });
@@ -219,6 +250,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-nodeunit');
     grunt.loadNpmTasks('grunt-connect-prism');
     grunt.loadNpmTasks('grunt-touch');
+    grunt.loadNpmTasks('grunt-concurrent');
 
     // Whenever the "test" task is run, first clean the "tmp" dir, then run this
     // plugin's task(s), then test the result.
@@ -227,14 +259,8 @@ module.exports = function(grunt) {
         'prism:webdav',
         'connect',
         'webdavinit:fromscratch',
-        'webdavinit:db_sync3',
         'touch',
-        'webdavpush:one',
-        'webdavpush:two',
-        'webdavpush:new_only',
-        'webdavpush:db_sync',
-        'webdavpush:db_sync2',
-        'webdavpush:db_sync3',
+        'concurrent:test',
         'nodeunit'
     ]);
 
