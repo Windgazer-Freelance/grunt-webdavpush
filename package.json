@@ -1,7 +1,7 @@
 {
   "name": "grunt-webdavpush",
   "description": "A one-way webdav based sync.",
-  "version": "0.2.2",
+  "version": "0.3.0",
   "homepage": "",
   "author": {
     "name": "Martin Reurings",
@@ -29,6 +29,7 @@
   },
   "devDependencies": {
     "grunt": "~1.0.1",
+    "grunt-concurrent": "^2.3.0",
     "grunt-connect-prism": "^1.0.5",
     "grunt-contrib-clean": "^1.0.0",
     "grunt-contrib-connect": "^1.0.2",

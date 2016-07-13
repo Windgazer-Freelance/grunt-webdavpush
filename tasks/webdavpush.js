@@ -15,9 +15,6 @@ var fs = require('fs'),
 ;
 
 module.exports = function(grunt) {
-    var db = new Loki(__dirname + '/loki.db.json'),
-        files
-    ;
 
     function setHeaders(requestOptions, options) {
         if (options.auth) {
@@ -57,7 +54,7 @@ module.exports = function(grunt) {
         fs.createReadStream(f.src).pipe(request.put(requestOptions, createHandler(done)));
     }
 
-    function checkdb(filepath) {
+    function checkdb(filepath, files) {
         var file = files.findOne( {'src': {'$eq': filepath}} );
         var mtime, changed;
         if (file) {
@@ -81,15 +78,22 @@ module.exports = function(grunt) {
 
     grunt.registerMultiTask('webdavpush', 'A one-way webdav based sync.', function() {
 
-        var done = this.async(),
+        var files,
+            done = this.async(),
             that = this,
             // Merge task-specific and/or target-specific options with these defaults.
             options = this.options({
                 since: (5 * 60 * 1000), //5 minutes old
                 db: false
             }),
+            db,
             filterSince = (new Date()).getTime() - ~~options.since //5 minutes old
         ;
+
+        if (options.db) {
+            grunt.log.debug('*** Using configured db or not... ', options.db);
+            db = new Loki((typeof options.db === 'string')?options.db:__dirname + '/loki.db.json');
+        }
 
         function getdb(done) {
             grunt.log.debug('Loading in db entries.');
@@ -117,7 +121,7 @@ module.exports = function(grunt) {
                         grunt.log.warn('Source file "' + filepath + '" not found.');
                         return false;
                     } else {
-                        return (options.db ? checkdb(filepath) : fs.lstatSync(filepath).mtime > filterSince);
+                        return (options.db ? checkdb(filepath, files) : fs.lstatSync(filepath).mtime > filterSince);
                     }
                 }).map(function(filepath) {
                     var destination = f.dest;
@@ -142,9 +146,8 @@ module.exports = function(grunt) {
             filterfiles
         ], function cleanup() {
             if (options.db) {
-                db.saveDatabase();
+                db.saveDatabase(done);
             }
-            done();
         });
     });
 

@@ -107,5 +107,21 @@ exports.webdavpush = {
         test.equal(actual, expected, 'expected no files to have been picked up');
 
         test.done();
+    },
+    dbsync3: function(test) {
+        test.expect(2);
+        var actual = grunt.file.exists('test/out/lokidb.db_sync3.json');
+
+        var expected = true;
+
+        test.equal(actual, expected, 'expected custom database file to be generated');
+
+        actual = grunt.file.read('test/out/lokidb.db_sync3.json');
+
+        expected = 'test';
+
+        test.ok(actual.contains(expected), 'Expected db-file to contain something at least.');
+
+        test.done();
     }
 };
