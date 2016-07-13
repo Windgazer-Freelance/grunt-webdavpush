@@ -50,12 +50,14 @@ your screen should not broad-cast your password... It is still recommended to st
 value outside of repo and require it in your Gruntfile!
 
 #### options.db
-Type: `boolean`
+Type: `boolean` / `String`
 Default value: `false`
 
 If set to true, this task will attempt to load a database and check if files have been
 modified since the database was last updated / initialised. If you want to make use of
 this options, you must first run the `webdavinit` task!
+
+If set to a `String` value, it is taken as the path to your database-file location.
 
 #### options.username
 Type: `String`
@@ -133,7 +135,13 @@ grunt.initConfig({
 
 ### options
 
-For now this task has no options, it only takes files.
+#### options.db
+Type: `boolean` / `String`
+Default value: `true`
+
+If set to true, this task will create a database in a default location.
+
+If set to a `String` value, it is taken as the path to your database-file location.
 
 ### Usage Examples
 
@@ -141,6 +149,16 @@ For now this task has no options, it only takes files.
 grunt.initConfig({
     webdavinit: {
         fromscratch: {
+            files: [ {
+                expand: true, flatten: false,
+                cwd: 'test/fixtures/',
+                src: [ '**/*' ]
+            } ]
+        },
+        customdb: {
+            options: {
+                db: __dirname + '/mylokidb.json'
+            }
             files: [ {
                 expand: true, flatten: false,
                 cwd: 'test/fixtures/',
@@ -159,6 +177,17 @@ grunt.initConfig({
                 src: [ '**/*' ],
                 dest: 'http://localhost:8081/webdav/all'
             } ]
+        },
+        custom_db_sync: {
+            options: {
+                db: __dirname + '/mylokidb.json'
+            },
+            files: [ {
+                expand: true, flatten: false,
+                cwd: 'test/fixtures/',
+                src: [ '**/*' ],
+                dest: 'http://localhost:8081/webdav/all'
+            } ]
         }
     }
 });
@@ -169,6 +198,11 @@ Add tests for whatever you attempt to fix / add. Make sure you at least adhere t
 jsHint rules defined in `.jshintrc`. Please attempt to match existing coding style!
 
 ## Release History
+
+### v0.3.0
+
+- Support for custom database location.
+- Fixed empty database due to async saving not finished before process is terminated (#7).
 
 ### v0.2.0
 
