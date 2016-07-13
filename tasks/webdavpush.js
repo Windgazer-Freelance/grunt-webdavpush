@@ -146,9 +146,8 @@ module.exports = function(grunt) {
             filterfiles
         ], function cleanup() {
             if (options.db) {
-                db.saveDatabase();
+                db.saveDatabase(done);
             }
-            done();
         });
     });
 

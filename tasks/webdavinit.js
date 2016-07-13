@@ -8,8 +8,10 @@
  */
 'use strict';
 
-var Loki = require('lokijs');
-var fs = require('fs');
+var Loki = require('lokijs'),
+    async = require('async'),
+    fs = require('fs')
+;
 
 module.exports = function(grunt) {
 
@@ -17,9 +19,10 @@ module.exports = function(grunt) {
 
         var options = this.options({
                 db: true
-            })
+            }),
+            done = this.async(),
+            db
         ;
-        var db;
 
         if (options.db) {
             grunt.log.debug('*** Using configured db or not... ', options.db);
@@ -47,7 +50,7 @@ module.exports = function(grunt) {
         }
 
         grunt.log.debug(files.data);
-        db.saveDatabase();
+        db.saveDatabase(done);
 
     });
 

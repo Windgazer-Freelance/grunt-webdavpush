@@ -116,11 +116,11 @@ exports.webdavpush = {
 
         test.equal(actual, expected, 'expected custom database file to be generated');
 
-        actual = grunt.file.readJSON('test/out/lokidb.db_sync3.json');
+        actual = grunt.file.read('test/out/lokidb.db_sync3.json');
 
         expected = 'test';
 
-        test.equal(actual, expected, 'Expected db-file to contain something at least.');
+        test.ok(actual.contains(expected), 'Expected db-file to contain something at least.');
 
         test.done();
     }

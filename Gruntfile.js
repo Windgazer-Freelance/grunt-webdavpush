@@ -229,13 +229,13 @@ module.exports = function(grunt) {
                 [
                     'webdavpush:db_sync',
                     'webdavpush:db_sync2',
-
                 ],
-                [
-                    'webdavinit:db_sync3',
-                    'webdavpush:db_sync3'
-                ]
-            ]
+            ],
+            quickexit: [ [ //This 'hack' ensures this tasks happens so quick, it won't be
+                           // able to safe before the process ends.
+                'webdavinit:db_sync3',
+                'webdavpush:db_sync3'
+            ] ]
         }
 
     });
@@ -261,6 +261,7 @@ module.exports = function(grunt) {
         'webdavinit:fromscratch',
         'touch',
         'concurrent:test',
+        'concurrent:quickexit', //needs to be separate and happen after the rest.
         'nodeunit'
     ]);
 
