@@ -201,20 +201,6 @@ module.exports = function(grunt) {
                 } ]
             }
         },
-        parallel: {
-            db_sync3: {
-                options: {
-                    grunt: true
-                },
-                tasks: [ 'webdavinit:db_sync3', 'webdavpush:db_sync3' ]
-            },
-            nodeunit: {
-                options: {
-                    grunt: true
-                },
-                tasks: [ 'nodeunit' ]
-            }
-        },
 
         // Unit tests.
         nodeunit: {
